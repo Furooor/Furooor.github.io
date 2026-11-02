@@ -1,403 +1,213 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Зерно — кофейня</title>
-<meta name="description" content="Кофейня «Зерно»: свежий кофе, домашняя выпечка и быстрый заказ онлайн. Демо-проект.">
-<meta name="theme-color" content="#2b1d14">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --cream:#f7f0e6; --cream2:#efe4d4; --espresso:#2b1d14; --brown:#5a3d2b;
-  --caramel:#c8793a; --caramel2:#e09a5c; --muted:#7d6a5b; --line:#e2d3bf; --white:#fffdf9;
-  --radius:20px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{
-  background:var(--cream);color:var(--espresso);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit}
-.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
-section{padding:84px 0}
-h1,h2,h3{font-family:"Playfair Display",Georgia,serif;line-height:1.15}
-h2{font-size:clamp(30px,4.5vw,44px);margin-bottom:12px}
-.lead{color:var(--muted);max-width:560px;font-size:17px;margin-bottom:36px}
-
-/* header */
-header{
-  position:sticky;top:0;z-index:40;background:rgba(247,240,230,.85);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-}
-.nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
-.logo{font-family:"Playfair Display",serif;font-weight:800;font-size:24px;display:flex;align-items:center;gap:8px}
-.links{display:flex;gap:28px;font-weight:500;font-size:15px;color:var(--brown)}
-.links a:hover{color:var(--caramel)}
-.cart-btn{
-  position:relative;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:99px;border:0;cursor:pointer;
-  background:var(--espresso);color:var(--cream);font-weight:600;font-size:14.5px;transition:transform .15s,background .2s;
-}
-.cart-btn:hover{background:var(--brown)}
-.cart-btn:active{transform:scale(.96)}
-.cart-count{background:var(--caramel);color:#fff;border-radius:99px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;padding:0 6px}
-
-/* buttons */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:99px;font-weight:600;font-size:16px;
-  cursor:pointer;border:2px solid transparent;transition:transform .15s,box-shadow .2s,background .2s;
-}
-.btn:active{transform:scale(.97)}
-.btn.primary{background:var(--caramel);color:#fff;box-shadow:0 10px 26px rgba(200,121,58,.38)}
-.btn.primary:hover{background:#b86a2e;transform:translateY(-1px)}
-.btn.ghost{border-color:var(--espresso);color:var(--espresso);background:transparent}
-.btn.ghost:hover{background:var(--espresso);color:var(--cream)}
-
-/* hero */
-.hero{padding-top:56px}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.tagline{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--caramel);margin-bottom:16px}
-.hero h1{font-size:clamp(40px,6.5vw,70px);font-weight:800;margin-bottom:20px}
-.hero h1 em{font-style:italic;color:var(--caramel)}
-.hero p.sub{font-size:18px;color:var(--muted);max-width:480px;margin-bottom:30px}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
-.facts{display:flex;gap:32px;flex-wrap:wrap}
-.facts b{font-family:"Playfair Display",serif;font-size:30px;display:block}
-.facts span{font-size:13px;color:var(--muted)}
-.art{
-  position:relative;aspect-ratio:1/1;max-width:460px;margin-inline:auto;width:100%;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#e9b27d,var(--caramel) 55%,#8a4a1f);
-  display:grid;place-items:center;box-shadow:0 40px 80px rgba(90,61,43,.35);
-}
-.art .cup{font-size:clamp(110px,22vw,190px);filter:drop-shadow(0 18px 18px rgba(0,0,0,.25));animation:float 5s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-12px) rotate(-3deg)}}
-.steam{position:absolute;top:8%;left:50%;display:flex;gap:14px;transform:translateX(-50%)}
-.steam i{width:8px;height:60px;border-radius:99px;background:linear-gradient(to top,rgba(255,255,255,.5),transparent);animation:steam 3s infinite ease-in-out}
-.steam i:nth-child(2){animation-delay:.6s;height:80px}.steam i:nth-child(3){animation-delay:1.2s}
-@keyframes steam{0%{opacity:0;transform:translateY(20px)}50%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
-.sticker{
-  position:absolute;right:-4px;bottom:12%;background:var(--white);color:var(--espresso);border-radius:18px;padding:12px 18px;
-  font-weight:600;font-size:14px;box-shadow:0 14px 30px rgba(0,0,0,.18);transform:rotate(4deg)
-}
-.sticker small{display:block;color:var(--muted);font-weight:500}
-
-/* features */
-.feat{background:var(--cream2);border-block:1px solid var(--line)}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.fcard{background:var(--white);border-radius:var(--radius);padding:28px;border:1px solid var(--line)}
-.fcard .e{font-size:34px;margin-bottom:12px}
-.fcard h3{font-size:22px;margin-bottom:8px}
-.fcard p{color:var(--muted);font-size:15px}
-
-/* menu */
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
-.tab{
-  padding:10px 22px;border-radius:99px;border:1.5px solid var(--line);background:var(--white);cursor:pointer;
-  font-weight:600;font-size:15px;color:var(--brown);transition:.2s;
-}
-.tab:hover{border-color:var(--caramel)}
-.tab.on{background:var(--espresso);border-color:var(--espresso);color:var(--cream)}
-.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.item{
-  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;
-  transition:transform .25s,box-shadow .25s;animation:in .35s ease;
-}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.item:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(90,61,43,.14)}
-.item .em{font-size:44px;margin-bottom:10px}
-.item h3{font-size:21px;margin-bottom:6px}
-.item p{color:var(--muted);font-size:14.5px;flex:1;margin-bottom:16px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.price{font-weight:700;font-size:18px}
-.add{
-  border:0;cursor:pointer;background:var(--caramel);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:99px;transition:.15s;
-}
-.add:hover{background:#b86a2e}.add:active{transform:scale(.94)}
-
-/* about */
-.about{background:var(--espresso);color:var(--cream)}
-.about .lead{color:#cdb9a4}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.info{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:28px}
-.info h3{font-size:22px;margin-bottom:14px;color:var(--caramel2)}
-.info p,.info li{color:#e6d8c8;font-size:15.5px}
-.info ul{list-style:none;display:grid;gap:10px}
-.info li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.15);padding-bottom:8px}
-
-footer{padding:34px 0;text-align:center;color:var(--muted);font-size:14px}
-footer b{color:var(--espresso)}
-
-/* drawer */
-.overlay{position:fixed;inset:0;background:rgba(43,29,20,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
-.overlay.on{opacity:1;pointer-events:auto}
-.drawer{
-  position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--white);z-index:70;
-  transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.25)
-}
-.drawer.on{transform:none}
-.d-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line)}
-.d-head h3{font-size:24px}
-.x{border:0;background:var(--cream2);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px}
-.d-body{flex:1;overflow-y:auto;padding:18px 24px}
-.empty{color:var(--muted);text-align:center;padding:40px 0}
-.line{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.line .t{flex:1;font-weight:600}
-.line .t small{display:block;color:var(--muted);font-weight:500}
-.qty{display:flex;align-items:center;gap:8px}
-.qty button{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);background:var(--white);cursor:pointer;font-size:16px;line-height:1}
-.qty button:hover{border-color:var(--caramel)}
-.d-foot{padding:18px 24px 24px;border-top:1px solid var(--line);display:grid;gap:10px}
-.total{display:flex;justify-content:space-between;font-weight:700;font-size:18px}
-.d-foot input{
-  width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid var(--line);font-size:15px;font-family:inherit;background:var(--cream);outline:none
-}
-.d-foot input:focus{border-color:var(--caramel)}
-.d-foot .btn{width:100%}
-.ok{text-align:center;padding:50px 24px}
-.ok .big{font-size:60px;margin-bottom:10px}
-.ok h3{font-size:26px;margin-bottom:10px}
-.ok p{color:var(--muted)}
-.note{font-size:12.5px;color:var(--muted);text-align:center}
-
-@media (max-width:900px){
-  .hero-grid,.about-grid{grid-template-columns:1fr}
-  .grid3,.menu{grid-template-columns:1fr 1fr}
-  .links{display:none}
-  section{padding:60px 0}
-  .art{max-width:340px}
-}
-@media (max-width:560px){
-  .grid3,.menu{grid-template-columns:1fr}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Павел Федотов — fullstack-разработчик</title>
+  <meta name="description" content="Павел Федотов — fullstack-разработчик. Беру задачу целиком: от идеи до запуска и результата, который работает сам.">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="Павел Федотов — fullstack-разработчик">
+  <meta property="og:description" content="Беру задачу целиком: от идеи до запуска и результата, который работает сам.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232747D6'/%3E%3Crect x='8' y='22' width='16' height='3' fill='%23FFC93C'/%3E%3C/svg%3E">
+  <script>
+    // Тема до отрисовки, чтобы не мигало; .js включает анимации появления
+    document.documentElement.classList.add('js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
 
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="#top">☕ Зерно</a>
-    <nav class="links">
-      <a href="#menu">Меню</a>
-      <a href="#about">О нас</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
-    <button class="cart-btn" id="openCart" type="button" aria-label="Открыть корзину">
-      Корзина <span class="cart-count" id="count">0</span>
-    </button>
-  </div>
-</header>
-
-<main id="top">
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="tagline">Кофейня · обжарка · выпечка</span>
-      <h1>Кофе, к которому хочется <em>возвращаться</em></h1>
-      <p class="sub">Свежеобжаренные зёрна, домашняя выпечка и тёплая атмосфера. Закажите онлайн и заберите без очереди.</p>
-      <div class="cta">
-        <a class="btn primary" href="#menu">Смотреть меню</a>
-        <a class="btn ghost" href="#about">Как нас найти</a>
-      </div>
-      <div class="facts">
-        <div><b>8 лет</b><span>варим кофе</span></div>
-        <div><b>12</b><span>сортов зёрен</span></div>
-        <div><b>5 мин</b><span>готовим заказ</span></div>
+  <header class="site-header" id="header">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="wrap header-inner">
+      <a class="logo" href="#top">Павел Федотов</a>
+      <nav class="nav" id="nav" aria-label="Разделы">
+        <a href="#about">Обо мне</a>
+        <a href="#projects">Проекты</a>
+        <a href="#skills">Навыки</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Переключить тему">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
       </div>
     </div>
-    <div class="art" aria-hidden="true">
-      <div class="steam"><i></i><i></i><i></i></div>
-      <div class="cup">☕</div>
-      <div class="sticker">Кофе дня<small>Флэт уайт · 220 ₽</small></div>
-    </div>
-  </div>
-</section>
+  </header>
 
-<section class="feat">
-  <div class="wrap">
-    <div class="grid3">
-      <div class="fcard"><div class="e">🌱</div><h3>Свежая обжарка</h3><p>Зёрна обжариваем каждую неделю небольшими партиями, чтобы вкус был ярким.</p></div>
-      <div class="fcard"><div class="e">🥐</div><h3>Своя выпечка</h3><p>Круассаны, чизкейки и печенье готовим утром, а не привозим вчерашнее.</p></div>
-      <div class="fcard"><div class="e">⚡</div><h3>Заказ за 2 минуты</h3><p>Соберите заказ на сайте, и мы приготовим его к вашему приходу.</p></div>
-    </div>
-  </div>
-</section>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <p class="status"><span class="dot" aria-hidden="true"></span>Открыт к новым проектам</p>
+        <h1 class="hero-name"><span class="line"><span>Павел</span></span><span class="line"><span><mark>Федотов</mark></span></span></h1>
+        <p class="rotator">
+          <span class="visually-hidden">Делаю сайты, веб-сервисы, Telegram-ботов и автоматизацию.</span>
+          <span aria-hidden="true">Делаю <span class="rotator-word" id="rotator">веб-сервисы</span></span>
+        </p>
+        <div class="hero-bottom">
+          <!-- ЗАМЕНИТЬ: роль и интро -->
+          <p class="lead"><strong>Fullstack-разработчик.</strong> Беру задачу целиком: придумываю, пишу, запускаю и&nbsp;довожу до&nbsp;результата, который работает без&nbsp;вашего участия.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">Посмотреть проекты</a>
+            <a class="btn btn-secondary" href="#contact">Написать мне</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="menu">
-  <div class="wrap">
-    <h2>Меню</h2>
-    <p class="lead">Выберите напитки и десерты, добавьте в корзину и оформите заказ.</p>
-    <div class="tabs" id="tabs" role="tablist"></div>
-    <div class="menu" id="menuGrid"></div>
-  </div>
-</section>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap section-grid">
+        <h2 id="about-title" class="reveal">Обо мне</h2>
+        <div class="prose">
+          <!-- ЗАМЕНИТЬ: текст о себе -->
+          <p class="reveal">Делаю продукт от&nbsp;начала до&nbsp;конца: разбираюсь в&nbsp;задаче, проектирую решение, пишу и&nbsp;интерфейс, и&nbsp;серверную часть, а&nbsp;потом сам запускаю и&nbsp;настраиваю всё на&nbsp;сервере.</p>
+          <p class="reveal">Вам не&nbsp;нужно собирать команду и&nbsp;следить за&nbsp;каждым шагом. Вы описываете, что хотите получить, а&nbsp;я&nbsp;возвращаюсь с&nbsp;работающим сайтом, сервисом или ботом, который дальше справляется сам.</p>
+        </div>
+      </div>
+    </section>
 
-<section class="about" id="about">
-  <div class="wrap">
-    <h2>О нас</h2>
-    <p class="lead">Небольшая кофейня в центре города. Любим кофе и людей, которые его пьют.</p>
-    <div class="about-grid" id="contacts">
-      <div class="info">
-        <h3>Часы работы</h3>
-        <ul>
-          <li><span>Пн – Пт</span><span>8:00 – 22:00</span></li>
-          <li><span>Суббота</span><span>9:00 – 23:00</span></li>
-          <li><span>Воскресенье</span><span>9:00 – 21:00</span></li>
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="projects-title" class="reveal">Проекты</h2>
+          <p class="muted reveal">Каждый проект можно открыть и&nbsp;попробовать.</p>
+        </div>
+
+        <ul class="projects" id="projects-list">
+          <li class="card card-full reveal">
+            <div class="cover cover-radar" aria-hidden="true"><span class="radar-sweep"></span><span class="radar-blip"></span></div>
+            <div class="card-body">
+              <p class="card-kicker">Telegram-бот</p>
+              <h3>РискРадар</h3>
+              <!-- ЗАМЕНИТЬ: описание бота — что он делает и для кого -->
+              <p>Бот «РискРадар» в&nbsp;Telegram. Запускается в&nbsp;один клик, ничего не&nbsp;нужно устанавливать.</p>
+              <ul class="tags"><li>Telegram</li><li>Бот</li></ul>
+              <a class="card-link" href="https://t.me/RiskHelperRadar_Bot" target="_blank" rel="noopener">Открыть @RiskHelperRadar_Bot</a>
+            </div>
+          </li>
+
+          <li class="card card-full card-flip reveal">
+            <div class="cover cover-chat" aria-hidden="true">
+              <div class="chat">
+                <p class="bubble bubble-me">к пятнице сдать отчёт по продажам</p>
+                <div class="bubble bubble-bot">
+                  <p class="chat-title">Отчёт по продажам · до 6 нояб.</p>
+                  <ol class="chat-steps">
+                    <li class="is-done"><span>сб</span>Собрать данные</li>
+                    <li><span>пн</span>Проанализировать цифры</li>
+                    <li><span>ср</span>Составить отчёт</li>
+                    <li><span>пт</span>Сдать отчёт</li>
+                  </ol>
+                  <p class="chat-actions"><span class="chat-btn chat-btn-main">Сделал</span><span class="chat-btn">На завтра</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-kicker">Telegram-бот</p>
+              <h3>Дедлайн-напарник</h3>
+              <p>Пишете задачу обычным текстом, например «к&nbsp;пятнице сдать отчёт», и&nbsp;бот разбивает её на&nbsp;шаги и&nbsp;раскладывает по&nbsp;дням до&nbsp;срока. Утром присылает один шаг, вечером спрашивает, получилось&nbsp;ли. Если шаг дважды переносят, предлагает разбить его мельче.</p>
+              <p>Шаги придумывает нейросеть, запущенная локально через Ollama, поэтому тексты задач не&nbsp;уходят во&nbsp;внешние сервисы.</p>
+              <ul class="tags"><li>Python</li><li>aiogram</li><li>SQLite</li><li>Ollama</li></ul>
+              <a class="card-link" href="https://t.me/Deadline_Partner_Bot" target="_blank" rel="noopener">Открыть @Deadline_Partner_Bot</a>
+            </div>
+          </li>
+
+          <li class="card reveal">
+            <img class="cover cover-shot" src="img/cherry.jpg" width="1440" height="900" alt="Первый экран сайта кофейни «Черри»: крупное название и карточка с ползунком степени обжарки" loading="lazy">
+            <div class="card-body">
+              <p class="card-kicker">Сайт кофейни · концепт</p>
+              <h3>Черри</h3>
+              <p>Сайт кофейни с&nbsp;ползунком обжарки: двигаете его, и&nbsp;меняются сорт зерна, рецепт и&nbsp;цвет страницы.</p>
+              <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+              <a class="card-link" href="projects/cherry/" target="_blank" rel="noopener">Открыть сайт</a>
+            </div>
+          </li>
         </ul>
       </div>
-      <div class="info">
-        <h3>Где мы</h3>
-        <p>г. Примерный, ул. Кофейная, 12<br>Вход со двора, рядом с книжным магазином.</p>
-        <p style="margin-top:14px">📞 +7 (000) 000-00-00<br>✉️ hello@zerno.example</p>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="wrap section-grid">
+        <h2 id="skills-title" class="reveal">Навыки</h2>
+        <!-- ЗАМЕНИТЬ: группы навыков -->
+        <div class="skills">
+          <div class="skill-group reveal">
+            <h3>Фронтенд</h3>
+            <ul><li>HTML и&nbsp;CSS</li><li>JavaScript, TypeScript</li><li>React</li><li>Адаптивная вёрстка</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Бэкенд</h3>
+            <ul><li>Node.js, Python</li><li>REST API</li><li>Базы данных</li><li>Telegram-боты</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Запуск</h3>
+            <ul><li>Серверы и&nbsp;домены</li><li>Docker</li><li>Автоматизация</li><li>Git</li></ul>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="contact-title" class="reveal">Есть задача? Напишите.</h2>
+          <p class="lead muted reveal">Пишите в&nbsp;Telegram — отвечаю в&nbsp;течение дня.</p>
+          <a class="contact-handle reveal" href="https://t.me/furooor" target="_blank" rel="noopener">@furooor</a>
+          <div class="contact-row reveal">
+            <a class="btn btn-primary" href="https://t.me/furooor" target="_blank" rel="noopener">Написать в&nbsp;Telegram</a>
+            <button class="btn btn-secondary" id="copy-handle" type="button" data-handle="@furooor">Скопировать ник</button>
+            <span class="copy-note" id="copy-note" role="status" aria-live="polite"></span>
+          </div>
+          <!-- ЗАМЕНИТЬ: ссылки на GitHub и LinkedIn (или удалить строки) -->
+          <ul class="socials reveal">
+            <li><a href="https://t.me/furooor" target="_blank" rel="noopener">Telegram</a></li>
+            <li><a href="https://github.com/Furooor" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/username">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form" data-tg="furooor" novalidate>
+          <h3>Короткое сообщение</h3>
+          <label class="field">
+            <span>Как вас зовут</span>
+            <input name="name" type="text" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span>О чём проект</span>
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Отправить в&nbsp;Telegram</button>
+          <p class="form-hint muted" id="form-hint" aria-live="polite">Текст скопируется, и&nbsp;откроется чат со&nbsp;мной в&nbsp;Telegram — останется только вставить его.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> Павел Федотов</p>
+      <a href="#top">Наверх</a>
     </div>
-  </div>
-</section>
-</main>
+  </footer>
 
-<footer>
-  <div class="wrap"><b>Зерно</b> · демо-проект. Кофейня вымышленная, сайт сделан для портфолио.</div>
-</footer>
+  <button class="to-top" id="to-top" type="button" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-label="Корзина">
-  <div class="d-head"><h3>Ваш заказ</h3><button class="x" id="closeCart" type="button" aria-label="Закрыть">✕</button></div>
-  <div class="d-body" id="dBody"></div>
-  <div class="d-foot" id="dFoot">
-    <div class="total"><span>Итого</span><span id="total">0 ₽</span></div>
-    <input id="oName" placeholder="Ваше имя" maxlength="40" autocomplete="name">
-    <input id="oPhone" placeholder="Телефон" maxlength="20" inputmode="tel" autocomplete="tel">
-    <button class="btn primary" id="order" type="button">Оформить заказ</button>
-    <div class="note">Демо: заказ никуда не отправляется.</div>
-  </div>
-</aside>
 
-<script>
-var MENU = {
-  'Кофе': [
-    {n:'Эспрессо', d:'Классический двойной шот на зёрнах недели.', p:140, e:'☕'},
-    {n:'Американо', d:'Мягкий и чистый, с долгим послевкусием.', p:160, e:'☕'},
-    {n:'Капучино', d:'Бархатная пенка и насыщенный вкус.', p:210, e:'🥛'},
-    {n:'Флэт уайт', d:'Двойной эспрессо и плотное молоко.', p:220, e:'☕'},
-    {n:'Латте', d:'Нежный, сливочный, с лёгкой сладостью.', p:230, e:'🥛'},
-    {n:'Раф', d:'На сливках с ванильным сахаром.', p:260, e:'🍮'}
-  ],
-  'Не кофе': [
-    {n:'Какао', d:'Густое, на настоящем шоколаде.', p:210, e:'🍫'},
-    {n:'Чай с чабрецом', d:'Чёрный листовой чай и свежий чабрец.', p:170, e:'🍵'},
-    {n:'Матча-латте', d:'Японская матча и овсяное молоко.', p:270, e:'🍃'},
-    {n:'Лимонад дня', d:'Сезонные ягоды, мята и лёд.', p:230, e:'🍋'}
-  ],
-  'Десерты': [
-    {n:'Круассан', d:'Хрустящий, на французском масле.', p:180, e:'🥐'},
-    {n:'Чизкейк', d:'Нежный, с ягодным соусом.', p:260, e:'🍰'},
-    {n:'Брауни', d:'Влажный шоколадный, с орехами.', p:200, e:'🍫'},
-    {n:'Овсяное печенье', d:'С изюмом и корицей, как у бабушки.', p:110, e:'🍪'}
-  ]
-};
-var cart = {}; // key -> {n, p, q}
-var tabsEl = document.getElementById('tabs');
-var grid = document.getElementById('menuGrid');
-var current = Object.keys(MENU)[0];
-
-function money(v){ return v.toLocaleString('ru-RU') + ' ₽'; }
-
-function renderTabs(){
-  tabsEl.innerHTML = '';
-  Object.keys(MENU).forEach(function(k){
-    var b = document.createElement('button');
-    b.className = 'tab' + (k === current ? ' on' : '');
-    b.type = 'button'; b.textContent = k;
-    b.onclick = function(){ current = k; renderTabs(); renderMenu(); };
-    tabsEl.appendChild(b);
-  });
-}
-function renderMenu(){
-  grid.innerHTML = '';
-  MENU[current].forEach(function(it){
-    var el = document.createElement('div'); el.className = 'item';
-    el.innerHTML = '<div class="em"></div><h3></h3><p></p><div class="row"><span class="price"></span><button class="add" type="button">В корзину</button></div>';
-    el.querySelector('.em').textContent = it.e;
-    el.querySelector('h3').textContent = it.n;
-    el.querySelector('p').textContent = it.d;
-    el.querySelector('.price').textContent = money(it.p);
-    el.querySelector('.add').onclick = function(){ add(it); };
-    grid.appendChild(el);
-  });
-}
-
-var drawer = document.getElementById('drawer');
-var overlay = document.getElementById('overlay');
-function openCart(){ drawer.classList.add('on'); overlay.classList.add('on'); }
-function closeCart(){ drawer.classList.remove('on'); overlay.classList.remove('on'); }
-document.getElementById('openCart').onclick = openCart;
-document.getElementById('closeCart').onclick = closeCart;
-overlay.onclick = closeCart;
-document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeCart(); });
-
-function add(it){
-  if(!cart[it.n]) cart[it.n] = {n:it.n, p:it.p, q:0};
-  cart[it.n].q++; renderCart();
-  var c = document.getElementById('count');
-  c.animate([{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:250});
-}
-function changeQty(name, d){
-  cart[name].q += d;
-  if(cart[name].q <= 0) delete cart[name];
-  renderCart();
-}
-function renderCart(){
-  var body = document.getElementById('dBody');
-  var foot = document.getElementById('dFoot');
-  var keys = Object.keys(cart), cnt = 0, sum = 0;
-  body.innerHTML = '';
-  if(!keys.length){
-    body.innerHTML = '<div class="empty">Корзина пуста.<br>Добавьте что-нибудь вкусное из меню.</div>';
-    foot.style.display = 'none';
-  } else {
-    foot.style.display = 'grid';
-    keys.forEach(function(k){
-      var it = cart[k]; cnt += it.q; sum += it.p * it.q;
-      var row = document.createElement('div'); row.className = 'line';
-      row.innerHTML = '<div class="t"><span></span><small></small></div><div class="qty"><button type="button" aria-label="Меньше">−</button><span></span><button type="button" aria-label="Больше">+</button></div>';
-      row.querySelector('.t span').textContent = it.n;
-      row.querySelector('small').textContent = money(it.p * it.q);
-      var btns = row.querySelectorAll('button');
-      row.querySelector('.qty span').textContent = it.q;
-      btns[0].onclick = function(){ changeQty(k, -1); };
-      btns[1].onclick = function(){ changeQty(k, 1); };
-      body.appendChild(row);
-    });
-  }
-  document.getElementById('count').textContent = cnt;
-  document.getElementById('total').textContent = money(sum);
-}
-
-document.getElementById('order').onclick = function(){
-  var name = document.getElementById('oName');
-  var phone = document.getElementById('oPhone');
-  if(!name.value.trim() || phone.value.replace(/\D/g,'').length < 6){
-    (name.value.trim() ? phone : name).focus();
-    (name.value.trim() ? phone : name).style.borderColor = '#d9534f';
-    return;
-  }
-  var who = name.value.trim();
-  cart = {}; renderCart();
-  var body = document.getElementById('dBody');
-  body.innerHTML = '<div class="ok"><div class="big">🎉</div><h3></h3><p>Заказ принят. Мы приготовим его за 5–10 минут и позовём вас по имени.</p><p class="note" style="margin-top:14px">Это демо: в настоящем проекте заказ приходил бы владельцу в Telegram.</p></div>';
-  body.querySelector('h3').textContent = 'Спасибо, ' + who + '!';
-  name.value = ''; phone.value = '';
-  name.style.borderColor = phone.style.borderColor = '';
-};
-['oName','oPhone'].forEach(function(id){
-  document.getElementById(id).addEventListener('input', function(e){ e.target.style.borderColor = ''; });
-});
-
-renderTabs(); renderMenu(); renderCart();
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
